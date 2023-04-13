@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+      env:
+      GOPATH: go/src/github.com/iamhimansu/firstapp
     steps:
     - uses: actions/checkout@v2
     - name: Set up Go
