@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: main
+    
     - name: Build Go app
       run: go build main.go
     
@@ -22,9 +23,10 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         personal_token: ${{ secrets.GOLANG_PERSONAL_TOKEN }}
-        publish_dir: ./
-        enable_jekyll: true
+        publish_dir: ./    
     
-    
-    - name: Run App
+    - name: Go lean cache
+      run: go clean
+      
+    - name: Go Run App
       run: go run main.go
