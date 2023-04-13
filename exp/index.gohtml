@@ -1,0 +1,15 @@
+<h1>{{.Name}}</h1>
+<h1>{{.Age}}</h1>
+{{.Meta.Visits}}
+{{.XSS}}
+<pre>{{.}}</pre>
+
+<script>
+const User = {
+    "name" : {{.Name}},
+    "xss": {{.XSS}},
+    "obj": {{.}}
+}
+console.log(User, {{.}});
+</script>
+
