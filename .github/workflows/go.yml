@@ -1,4 +1,4 @@
-name: Go
+name: Build and Deploy Go Binary
 
 on:
   push:
@@ -8,25 +8,33 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/setup-go@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Go binary
+      run: |
+        go build -o myapp main.go
+
+    - name: Upload binary as artifact
+      uses: actions/upload-artifact@v2
       with:
-        go-version: 1.16
-    - uses: actions/checkout@v2
+        name: myapp
+        path: myapp
+
+  run:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download binary artifact
+      uses: actions/download-artifact@v2
       with:
-        ref: main
-    
-    - name: Build Go app
-      run: go build main.go
-    
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        personal_token: ${{ secrets.GOLANG_PERSONAL_TOKEN }}
-        publish_dir: ./    
-    
-    - name: Go lean cache
-      run: go clean
-      
-    - name: Go Run App
-      run: go run main.go
+        name: myapp
+
+    - name: Make binary executable
+      run: chmod +x myapp
+
+    - name: Run binary
+      run: ./myapp
