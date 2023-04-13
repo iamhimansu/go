@@ -94,4 +94,5 @@ func main() {
 	// http.HandleFunc("/contact", contactHandler)
 	fmt.Println("Starting the server on :3000")
 	http.ListenAndServe(":3000", request)
+	fmt.Println("Server started")
 }
