@@ -28,13 +28,9 @@ jobs:
       with:
         go-version: 1.17
       id: go
-	
-    - name: Build Go app
+        
+    - name: Build
       run: go build -o app go/src/github.com/iamhimansu/firstapp/main.go
-      
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        publish_dir: ./public
-
+    
+    - name: Test
+      run: go test -v ./...
