@@ -16,7 +16,7 @@ jobs:
       with:
         ref: main
     - name: Build Go app
-      run: go build -o app main.go
+      run: go build main.go
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
