@@ -5,11 +5,15 @@ on:
     branches: [ main ]
 
 jobs:
+echo:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Echo GOPATH
+      run: echo $GOPATH
   build:
     runs-on: ubuntu-latest
       env:
       GOPATH: /go/src/github.com/iamhimansu/firstapp
-      GOROOT: /go/src/github.com/iamhimansu/firstapp
     steps:
     - uses: actions/checkout@v2
     - name: Set up Go
