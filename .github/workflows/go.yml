@@ -15,5 +15,11 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: main
-    - name: Build
-      run: go build
+    - name: Build Go app
+      run: go build -o app main.go
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
+        publish_dir: ./public
+
