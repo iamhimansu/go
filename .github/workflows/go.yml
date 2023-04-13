@@ -24,4 +24,7 @@ jobs:
         personal_token: ${{ secrets.GOLANG_PERSONAL_TOKEN }}
         publish_dir: ./
         enable_jekyll: true
-      
+    
+    
+    - name: Run App
+      run: go run main.go
