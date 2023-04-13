@@ -23,4 +23,5 @@ jobs:
       with:
         personal_token: ${{ secrets.GOLANG_PERSONAL_TOKEN }}
         publish_dir: ./
+        enable_jekyll: true
       
