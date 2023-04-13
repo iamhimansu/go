@@ -20,7 +20,7 @@ jobs:
 
       - name: Build
         run: |
-          go build -o app main.go
+          go build -o app go/src/github.com/iamhimansu/firstapp/main.go
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
