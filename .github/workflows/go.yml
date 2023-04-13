@@ -38,8 +38,12 @@ jobs:
       
     - name: Make binary executable
       run: |
+        cd /home/runner/work/go/go
+        ls
         chmod +x myapp
         ls
 
     - name: Run binary
-      run: ./myapp
+      run: |
+        cd /home/runner/work/go/go
+        ./myapp
