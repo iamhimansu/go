@@ -9,8 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      GOROOT: /usr/local/go
-      GOPATH: /go/src/github.com/iamhimansu/firstapp/main.go
+      GOROOT: /go/src/github.com/iamhimansu/firstapp/main.go
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
