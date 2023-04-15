@@ -5,20 +5,23 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 
 	"github.com/go-chi/chi/v5"
 )
+
 type User struct {
 	Name string
-	XSS string
-	Age int
+	XSS  string
+	Age  int
 	Meta UserMeta
 }
 
-type UserMeta struct{
+type UserMeta struct {
 	Visits int
 }
+
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	tpl := filepath.Join("exp", "index.gohtml")
@@ -31,8 +34,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 	user := User{
 		Name: "susan",
-		XSS: `<script>alert('hello')</script>`,
-		Age: 20,
+		XSS:  `<script>alert('hello')</script>`,
+		Age:  20,
 		Meta: UserMeta{
 			Visits: 90,
 		},
@@ -50,7 +53,7 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	fmt.Fprint(w, "<h1>Contact Page</h1><div><a href=\"mailto:iamhimanshu7102@gmail.com\">iamhimanshu7102@gmail.com</a></div>")
 }
-func x(w http.ResponseWriter, r *http.Request){
+func x(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Write([]byte("welcome to x"))
 	w.Write([]byte(r.URL.RawQuery))
@@ -81,8 +84,8 @@ func x(w http.ResponseWriter, r *http.Request){
 // 		w.WriteHeader(http.StatusNotFound)
 // 		fmt.Fprint(w, "Page not found")
 
-// 	}
-// }
+//		}
+//	}
 func main() {
 	request := chi.NewRouter()
 	request.Get("/", homeHandler)
@@ -92,7 +95,13 @@ func main() {
 		http.Error(w, "Not found", http.StatusNotFound)
 	})
 	// http.HandleFunc("/contact", contactHandler)
-	fmt.Println("Starting the server on :3000")
-	http.ListenAndServe(":3000", request)
+	port := os.Getenv("PORT")
+	if port == "" {
+        port = "8080" // default port if not specified
+    }
+
+	fmt.Println("Starting the server on " + port)
+
+	http.ListenAndServe(":"+port, request)
 	fmt.Println("Server started")
 }
